@@ -218,37 +218,41 @@
 
 
         <div id="step-2" class="step-content hidden">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-start mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Step 2: Choose Your Topic</h2>
-                <input type="file" id="upload-topic-input" accept=".txt,.pdf" class="hidden">
-                <button id="upload-topic-btn" class="flex items-center px-4 py-2 text-indigo-600 border border-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 transition duration-150 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                    </svg>
-                    Upload Topic
-                </button>
-            </div>
-
-            <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
-
-            <div class="flex space-x-4 mb-6">
                 
-                <div class="flex-grow flex space-x-2 items-center p-4 border border-gray-200 rounded-lg bg-gray-50">
-                    <input type="text" id="custom-topic-text" placeholder="Search a custom topic or keyword..." 
-                           class="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
-                    <button id="select-custom-topic-btn" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50" disabled>
-                        Select
+                <div class="flex flex-col space-y-4"> 
+                    <input type="file" id="upload-topic-input" accept=".txt,.pdf" class="hidden">
+                    
+                    <button id="upload-topic-btn" 
+                            class="flex items-center justify-center px-4 py-2 
+                                   text-indigo-600 border border-indigo-600 rounded-lg font-semibold 
+                                   hover:bg-indigo-50 transition duration-150 ease-in-out flex-shrink-0"
+                            style="width: 130px; height: 70px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        Upload Topic
+                    </button>
+
+                    <button id="select-random-topic-btn" 
+                            class="flex flex-col items-center justify-center px-4 
+                                   text-indigo-600 border border-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 
+                                   transition duration-150 ease-in-out flex-shrink-0" 
+                            style="width: 130px; height: 140px; padding: 0.5rem 1rem;">
+                        
+                        <span class="text-xl leading-none">🎲</span>
+                        <span class="text-base mt-1 leading-tight text-center">Select Random Topic</span>
                     </button>
                 </div>
-                
-                <button id="select-random-topic-btn" 
-                        class="flex flex-col items-center justify-center px-4 
-                                text-indigo-600 border border-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 
-                                transition duration-150 ease-in-out flex-shrink-0" 
-                        style="width: 130px; height: 140px; padding: 0.5rem 1rem;">
-                    
-                    <span class="text-xl leading-none">🎲</span>
-                    <span class="text-base mt-1 leading-tight text-center">Select Random Topic</span>
+            </div>
+            <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
+
+            <div class="flex space-x-2 items-center mb-6">
+                <input type="text" id="custom-topic-text" placeholder="Search a custom topic or keyword..." 
+                       class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                <button id="select-custom-topic-btn" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50" disabled>
+                    Select
                 </button>
             </div>
             <p id="selected-topics-indicator" class="text-sm font-medium text-gray-700 mb-6">Selected Topics (Priority Order): None</p>
