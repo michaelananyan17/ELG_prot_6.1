@@ -173,27 +173,28 @@
 
         /* MODIFIED (Instruction 4): Removing MC tile styles as they are no longer used */
 
-        /* === START: NEW STYLE FOR RANDOMIZER BUTTON (Instruction 2) === */
+        /* === START: CORRECTED STYLE FOR RANDOMIZER BUTTON (Instruction 2) === */
         .random-button {
-            /* Using a blue/indigo color scheme for a playful/appealing look */
-            background-color: #6366f1; /* Indigo 500 */
-            border: 2px solid #4f46e5; /* Indigo 600 */
+            /* Solid primary color, contrasting the border-only 'Upload Topic' */
+            background-color: #4f46e5; /* Indigo 600 */
+            border: 2px solid #3730a3; /* Indigo 700 - Darker border for depth */
             color: white;
             font-weight: bold;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Prominent shadow for better appeal */
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4); 
         }
         .random-button:hover {
-            background-color: #4f46e5; /* Indigo 600 */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            transform: translateY(-1px);
+            background-color: #4338ca; /* Indigo 700 */
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.5);
+            transform: translateY(-2px); /* Taller lift on hover */
         }
         .random-button:active {
-            background-color: #4338ca; /* Indigo 700 */
+            background-color: #3730a3; /* Indigo 800 */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transform: translateY(0);
         }
-        /* === END: NEW STYLE FOR RANDOMIZER BUTTON === */
+        /* === END: CORRECTED STYLE FOR RANDOMIZER BUTTON === */
     </style>
 </head>
 <body class="p-4 sm:p-8">
@@ -253,9 +254,9 @@
 
             <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
 
-            <div class="flex gap-2 mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <div class="flex space-x-4 mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
                 
-                <div class="flex-grow max-w-lg flex space-x-2"> 
+                <div class="flex-grow flex space-x-2 items-center">
                     <input type="text" id="custom-topic-text" placeholder="Search a custom topic or keyword..." 
                            class="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
                     <button id="select-custom-topic-btn" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50" disabled>
@@ -263,11 +264,9 @@
                     </button>
                 </div>
                 
-                <button id="select-random-topic-btn" class="random-button flex items-center justify-center px-4 py-2 rounded-lg text-white font-semibold flex-shrink-0" style="width: 130px; height: 50px;">
-                    <svg class="h-6 w-6 mr-2" viewBox="0 0 512 512" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M480 96H268.4l144.3-112.5c8.7-6.8 21.6-4.2 28.4 4.5l35.6 45.9c6.8 8.7 4.2 21.6-4.5 28.4L424 96h56c17.7 0 32 14.3 32 32v320c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V128c0-17.7 14.3-32 32-32h56c7.7 0 14.7 2.2 20.7 6.1L256 256 127.3 102.1C133.3 98.2 140.3 96 148 96h56c7.7 0 14.7 2.2 20.7 6.1L352 256 223.3 409.9c-6-3.9-13-6.1-20.7-6.1h-56c-7.7 0-14.7 2.2-20.7 6.1L64 352H32V128h32V96H32v320h448V128h-56zM172 172c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm168 0c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm-84 168c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zM172 340c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm168 0c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28z"/>
-                    </svg>
-                    Select Random Topic
+                <button id="select-random-topic-btn" class="random-button flex flex-col items-center justify-center px-4 py-1 rounded-lg text-white font-semibold flex-shrink-0" style="width: 130px; height: 50px;">
+                    <span class="text-xl leading-none">🎲</span>
+                    <span class="text-xs mt-1">Select Random Topic</span>
                 </button>
             </div>
             <p id="selected-topics-indicator" class="text-sm font-medium text-gray-700 mb-6">Selected Topics (Priority Order): None</p>
@@ -754,13 +753,10 @@
                 category: 'Search Term' 
             };
 
-            // 1. Remove old custom topic card from TOPIC_POOL and selected list if it exists
-            TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== customId);
-            appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== customId);
-
-            // Also remove 'random_topic' if it exists to clean the slate for the new focus
-            TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== 'random_topic');
-            appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== 'random_topic');
+            // 1. Remove old custom/random/uploaded topic card from TOPIC_POOL and selected list if it exists
+            TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== customId && t.id !== 'random_topic' && t.id !== 'uploaded');
+            appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== customId && id !== 'random_topic' && id !== 'uploaded');
+            if (appState.uploadedTopic) appState.uploadedTopic = null;
 
 
             // 2. Add the new custom topic to the front of the pool
@@ -787,30 +783,30 @@
             if (newCardElement) newCardElement.classList.add('selected');
         }
         
-        // ********** NEW FUNCTION FOR RANDOM TOPIC (Instruction 2) **********
+        // ********** CORRECTED FUNCTION FOR RANDOM TOPIC **********
         async function handleSelectRandomTopic() {
             const randomTopicId = 'random_topic';
             
             // Temporarily disable the button and show a loading state
             const randomBtn = getElement('select-random-topic-btn');
-            const originalText = randomBtn.innerHTML;
+            const originalHtml = randomBtn.innerHTML;
             randomBtn.disabled = true;
-            randomBtn.innerHTML = '<div class="spinner w-5 h-5 mr-2"></div> Generating...';
+            randomBtn.innerHTML = '<div class="spinner w-5 h-5"></div> <span class="text-xs mt-1">Generating...</span>';
             
-            // 1. Prepare for API Call to get 1 or 2 random topics
-            // The logic to generate random topic text via LLM is added here.
             try {
                 if (!API_KEY) {
-                    throw new Error("API Key is required to use the topic randomizer.");
+                    throw new Error("API Key is required to use the topic randomizer. Please complete Step 1.");
                 }
                 
+                // Simplified payload for robustness
                 const payload = {
                     model: OPENAI_MODEL,
                     messages: [
-                        { role: "system", content: "You are a creative random topic generator. Your task is to generate 1 or 2 distinct, creative, and specific English learning topics suitable for a lesson, formatted as a raw JSON array of strings. Do not include any other text." },
-                        { role: "user", content: "Generate 1 or 2 random, unique, and specific English learning topics. Example: [\"The Sociology of Memes\", \"Deep Sea Hydrothermal Vents\"]." }
+                        // Simpler system prompt: requesting a raw array directly
+                        { role: "system", content: "You are a creative random topic generator. Your sole task is to generate 1 or 2 distinct, creative, and specific English learning topics suitable for a lesson. The response MUST be a raw JSON array of strings only. Example response: [\"The Sociology of Memes\", \"Deep Sea Hydrothermal Vents\"]" },
+                        { role: "user", content: "Generate 1 or 2 random, unique, and specific English learning topics." }
                     ],
-                    response_format: { type: "json_object" }
+                    response_format: { type: "json_object" } // Keep this to ensure JSON format, but simplify the content
                 };
                 
                 const apiResponse = await callOpenAIApi(payload);
@@ -819,11 +815,24 @@
                 
                 if (textPart) {
                     try {
-                        const jsonResponse = JSON.parse(textPart);
-                        randomTopics = Array.isArray(jsonResponse) ? jsonResponse.slice(0, 2) : [];
+                        let jsonResponse = JSON.parse(textPart);
+                        
+                        // Robust check: if it's an object, find the first array value (in case LLM wraps the array)
+                        if (typeof jsonResponse === 'object' && !Array.isArray(jsonResponse)) {
+                            const firstArray = Object.values(jsonResponse).find(Array.isArray);
+                            if (firstArray) jsonResponse = firstArray;
+                        }
+
+                        // Final check to ensure it's an array
+                        randomTopics = Array.isArray(jsonResponse) ? jsonResponse.slice(0, 2).map(String) : [];
+
                     } catch (e) {
-                        // Fallback if the LLM doesn't return clean JSON, try to extract text
-                        randomTopics = textPart.split('\n').map(t => t.replace(/[^a-zA-Z0-9\s-:]/g, '').trim()).filter(Boolean).slice(0, 2);
+                        // Fallback logic: if JSON fails, try to extract text in a simpler way
+                        console.warn("JSON parsing failed, attempting text extraction fallback.", e);
+                        randomTopics = textPart.split('\n')
+                                                .map(t => t.replace(/[^a-zA-Z0-9\s.:-]/g, '').trim()) // Clean up punctuation
+                                                .filter(Boolean)
+                                                .slice(0, 2);
                     }
                 }
                 
@@ -831,10 +840,11 @@
                      throw new Error("LLM failed to return a valid random topic.");
                 }
                 
-                // 2. Clear previous custom/random topics and selection
-                TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== randomTopicId && t.id !== 'custom_topic');
-                appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== randomTopicId && id !== 'custom_topic');
-                
+                // 2. Clear previous custom/random/uploaded topics and selection
+                TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== randomTopicId && t.id !== 'custom_topic' && t.id !== 'uploaded');
+                appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== randomTopicId && id !== 'custom_topic' && id !== 'uploaded');
+                if (appState.uploadedTopic) appState.uploadedTopic = null;
+
                 // 3. Create the new topic object(s). Use the first one for the card display.
                 const newTopicName = randomTopics.join(' & ');
                 const newTopic = { 
@@ -842,7 +852,7 @@
                     name: newTopicName, 
                     icon: '🎲', 
                     category: 'Random Generator',
-                    content: `Randomly generated topics: ${randomTopics.join(' | ')}`
+                    content: `Randomly generated topics: ${randomTopics.join(' | ')}` // Store all topics here
                 };
                 
                 TOPIC_POOL.unshift(newTopic);
@@ -868,11 +878,11 @@
                  alert(`Failed to generate random topic. Error: ${error.message}`);
             } finally {
                 // Restore the button state
-                randomBtn.innerHTML = originalText;
+                randomBtn.innerHTML = originalHtml;
                 randomBtn.disabled = false;
             }
         }
-        // ********** END NEW FUNCTION **********
+        // ********** END CORRECTED FUNCTION **********
 
 
         function handleUploadTopic(event) {
@@ -1319,12 +1329,12 @@
             const topicNames = selectedTopics.map(t => t.name);
             const topicContent = selectedTopics.map(t => {
                 // If it's a random topic, send the generated topic name as content
-                if (t.id === 'random_topic' || (t.id === 'custom_topic' && t.content)) {
+                if (t.id === 'random_topic' && t.content) {
                     return `\n\n[TOPIC(S) CONTENT: ${t.content}]\n`
                 }
-                // If it's an uploaded file
-                if (t.id === 'uploaded' && t.content) {
-                    return `\n\n[UPLOADED TEXT:\n${t.content.substring(0, 500)}...\n]`
+                // If it's a custom search or an uploaded file
+                if ((t.id === 'custom_topic' || t.id === 'uploaded') && t.content) {
+                    return `\n\n[USER PROVIDED CONTENT:\n${t.content.substring(0, 500)}...\n]`
                 }
                 return '';
             }).join('');
@@ -1347,10 +1357,6 @@
                     }
                 }
             });
-            
-            // Old logic (for comparison):
-            // const selectedFormats = appState.selectedFormatIds.map(id => FORMAT_POOL.find(f => f.id === id)).filter(Boolean);
-            // const formatTypes = selectedFormats.map(f => f.type);
             
             const numAssignments = formatTypes.length; // This now reflects the total count
             // === END: MODIFIED PAYLOAD LOGIC ===
@@ -1640,5 +1646,4 @@
     </script>
 </body>
 </html>
-
 
