@@ -588,13 +588,21 @@
             const format = appState.selectedFormats.find(sf => sf.id === id);
             if (format) {
                 const newCount = format.count + change;
-                if (newCount >= 1) { // Count cannot go below 1
+                // === START: MODIFIED LOGIC ===
+                // Apply max limit of 3 and min limit of 1
+                if (newCount >= 1 && newCount <= 3) { 
                     format.count = newCount;
                 }
+                // === END: MODIFIED LOGIC ===
                 
                 // Update DOM directly instead of full re-render
                 getElement(`count-${id}`).textContent = format.count;
+                // === START: MODIFIED LOGIC ===
+                // Disable minus button if count is 1 or less
                 getElement(`btn-minus-${id}`).disabled = format.count <= 1;
+                // Disable plus button if count is 3 or more
+                getElement(`btn-plus-${id}`).disabled = format.count >= 3;
+                // === END: MODIFIED LOGIC ===
             }
         }
         // === END: MODIFIED/SPLIT SELECTION FUNCTIONS ===
@@ -696,7 +704,7 @@
                         <div class="flex items-center justify-center space-x-2 mt-1">
                             <button id="btn-minus-${f.id}" class="counter-btn" onclick="event.stopPropagation(); updateFormatCount('${f.id}', -1)" ${count <= 1 ? 'disabled' : ''}>-</button>
                             <span id="count-${f.id}" class="text-lg font-bold w-8 text-center">${count}</span>
-                            <button id="btn-plus-${f.id}" class="counter-btn" onclick="event.stopPropagation(); updateFormatCount('${f.id}', 1)">+</button>
+                            <button id="btn-plus-${f.id}" class="counter-btn" onclick="event.stopPropagation(); updateFormatCount('${f.id}', 1)" ${count >= 3 ? 'disabled' : ''}>+</button>
                         </div>
                     </div>
                     ` : ''}
