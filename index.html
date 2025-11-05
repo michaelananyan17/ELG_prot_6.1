@@ -172,6 +172,28 @@
 
 
         /* MODIFIED (Instruction 4): Removing MC tile styles as they are no longer used */
+
+        /* === START: NEW STYLE FOR RANDOMIZER BUTTON (Instruction 2) === */
+        .random-button {
+            /* Using a blue/indigo color scheme for a playful/appealing look */
+            background-color: #6366f1; /* Indigo 500 */
+            border: 2px solid #4f46e5; /* Indigo 600 */
+            color: white;
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .random-button:hover {
+            background-color: #4f46e5; /* Indigo 600 */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+        .random-button:active {
+            background-color: #4338ca; /* Indigo 700 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+        }
+        /* === END: NEW STYLE FOR RANDOMIZER BUTTON === */
     </style>
 </head>
 <body class="p-4 sm:p-8">
@@ -218,42 +240,36 @@
 
 
         <div id="step-2" class="step-content hidden">
-            
-            <input type="file" id="upload-topic-input" accept=".txt,.pdf" class="hidden">
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 items-start">
-
-                <div class="md:col-span-2">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Step 2: Choose Your Topic</h2>
-                    <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
-
-                    <div class="flex gap-2 p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <input type="text" id="custom-topic-text" placeholder="Search a custom topic or keyword..." 
-                               class="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
-                        <button id="select-custom-topic-btn" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50" disabled>
-                            Select
-                        </button>
-                    </div>
-                </div>
-
-                <div class="md:col-span-1 flex flex-col gap-3 md:pt-14">
-                    <button id="upload-topic-btn" class="flex items-center justify-center px-4 py-2 text-indigo-600 border border-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 transition duration-150 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                        Upload Topic
-                    </button>
-                    
-                    <button id="random-topic-btn" onclick="selectRandomTopic()" 
-                            class="flex items-center justify-center px-4 py-4 text-purple-800 bg-purple-100 border border-purple-300 rounded-lg font-semibold hover:bg-purple-200 transition duration-150 ease-in-out shadow-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M7 2a1 1 0 00-1 1v1H5a1 1 0 000 2h1v11a1 1 0 001 1h8a1 1 0 001-1V6h1a1 1 0 100-2h-1V3a1 1 0 00-1-1H7zm3 14a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                        </svg>
-                        Select Random Topic
-                    </button>
-                </div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Step 2: Choose Your Topic</h2>
+                <input type="file" id="upload-topic-input" accept=".txt,.pdf" class="hidden">
+                <button id="upload-topic-btn" class="flex items-center px-4 py-2 text-indigo-600 border border-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    Upload Topic
+                </button>
             </div>
-            
+
+            <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
+
+            <div class="flex gap-2 mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
+                
+                <div class="flex-grow max-w-lg flex space-x-2"> 
+                    <input type="text" id="custom-topic-text" placeholder="Search a custom topic or keyword..." 
+                           class="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                    <button id="select-custom-topic-btn" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50" disabled>
+                        Select
+                    </button>
+                </div>
+                
+                <button id="select-random-topic-btn" class="random-button flex items-center justify-center px-4 py-2 rounded-lg text-white font-semibold flex-shrink-0" style="width: 130px; height: 50px;">
+                    <svg class="h-6 w-6 mr-2" viewBox="0 0 512 512" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M480 96H268.4l144.3-112.5c8.7-6.8 21.6-4.2 28.4 4.5l35.6 45.9c6.8 8.7 4.2 21.6-4.5 28.4L424 96h56c17.7 0 32 14.3 32 32v320c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V128c0-17.7 14.3-32 32-32h56c7.7 0 14.7 2.2 20.7 6.1L256 256 127.3 102.1C133.3 98.2 140.3 96 148 96h56c7.7 0 14.7 2.2 20.7 6.1L352 256 223.3 409.9c-6-3.9-13-6.1-20.7-6.1h-56c-7.7 0-14.7 2.2-20.7 6.1L64 352H32V128h32V96H32v320h448V128h-56zM172 172c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm168 0c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm-84 168c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zM172 340c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28zm168 0c-15.4 0-28 12.6-28 28s12.6 28 28 28 28-12.6 28-28-12.6-28-28-28z"/>
+                    </svg>
+                    Select Random Topic
+                </button>
+            </div>
             <p id="selected-topics-indicator" class="text-sm font-medium text-gray-700 mb-6">Selected Topics (Priority Order): None</p>
 
             <div id="topic-cards" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
@@ -269,6 +285,7 @@
                 </button>
             </div>
         </div>
+
         <div id="step-3" class="step-content hidden">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Step 3: Format & Difficulty</h2>
 
@@ -552,7 +569,7 @@
                 const priorityNum = cardElement.querySelector('.priority-number');
                 if (priorityNum) priorityNum.remove();
 
-                // If the deselected card was custom/uploaded, remove it from TOPIC_POOL
+                // If the deselected card was custom/uploaded/random, remove it from TOPIC_POOL
                 if (typeof id === 'string') {
                     TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== id);
                     if (id === 'uploaded') appState.uploadedTopic = null;
@@ -674,7 +691,7 @@
             const topicContainer = getElement('topic-cards');
             topicContainer.innerHTML = TOPIC_POOL.map(t => {
                 const isSelected = appState.selectedTopicIds.includes(t.id);
-                const category = t.category || 'Custom'; // Handle custom/uploaded topics
+                const category = t.category || 'Custom'; // Handle custom/uploaded/random topics
                 const idString = typeof t.id === 'number' ? t.id : `'${t.id}'`;
 
                 return `
@@ -741,6 +758,11 @@
             TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== customId);
             appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== customId);
 
+            // Also remove 'random_topic' if it exists to clean the slate for the new focus
+            TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== 'random_topic');
+            appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== 'random_topic');
+
+
             // 2. Add the new custom topic to the front of the pool
             TOPIC_POOL.unshift(newTopic);
 
@@ -764,6 +786,94 @@
             const newCardElement = getElement(`topic-${customId}`);
             if (newCardElement) newCardElement.classList.add('selected');
         }
+        
+        // ********** NEW FUNCTION FOR RANDOM TOPIC (Instruction 2) **********
+        async function handleSelectRandomTopic() {
+            const randomTopicId = 'random_topic';
+            
+            // Temporarily disable the button and show a loading state
+            const randomBtn = getElement('select-random-topic-btn');
+            const originalText = randomBtn.innerHTML;
+            randomBtn.disabled = true;
+            randomBtn.innerHTML = '<div class="spinner w-5 h-5 mr-2"></div> Generating...';
+            
+            // 1. Prepare for API Call to get 1 or 2 random topics
+            // The logic to generate random topic text via LLM is added here.
+            try {
+                if (!API_KEY) {
+                    throw new Error("API Key is required to use the topic randomizer.");
+                }
+                
+                const payload = {
+                    model: OPENAI_MODEL,
+                    messages: [
+                        { role: "system", content: "You are a creative random topic generator. Your task is to generate 1 or 2 distinct, creative, and specific English learning topics suitable for a lesson, formatted as a raw JSON array of strings. Do not include any other text." },
+                        { role: "user", content: "Generate 1 or 2 random, unique, and specific English learning topics. Example: [\"The Sociology of Memes\", \"Deep Sea Hydrothermal Vents\"]." }
+                    ],
+                    response_format: { type: "json_object" }
+                };
+                
+                const apiResponse = await callOpenAIApi(payload);
+                const textPart = apiResponse?.choices?.[0]?.message?.content;
+                let randomTopics = [];
+                
+                if (textPart) {
+                    try {
+                        const jsonResponse = JSON.parse(textPart);
+                        randomTopics = Array.isArray(jsonResponse) ? jsonResponse.slice(0, 2) : [];
+                    } catch (e) {
+                        // Fallback if the LLM doesn't return clean JSON, try to extract text
+                        randomTopics = textPart.split('\n').map(t => t.replace(/[^a-zA-Z0-9\s-:]/g, '').trim()).filter(Boolean).slice(0, 2);
+                    }
+                }
+                
+                if (randomTopics.length === 0) {
+                     throw new Error("LLM failed to return a valid random topic.");
+                }
+                
+                // 2. Clear previous custom/random topics and selection
+                TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== randomTopicId && t.id !== 'custom_topic');
+                appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== randomTopicId && id !== 'custom_topic');
+                
+                // 3. Create the new topic object(s). Use the first one for the card display.
+                const newTopicName = randomTopics.join(' & ');
+                const newTopic = { 
+                    id: randomTopicId, 
+                    name: newTopicName, 
+                    icon: '🎲', 
+                    category: 'Random Generator',
+                    content: `Randomly generated topics: ${randomTopics.join(' | ')}`
+                };
+                
+                TOPIC_POOL.unshift(newTopic);
+                
+                // 4. Select the new random topic
+                if (appState.selectedTopicIds.length >= 2) {
+                    const idToDeselect = appState.selectedTopicIds.pop();
+                    const elementToDeselect = getElement(`topic-${idToDeselect}`);
+                    if (elementToDeselect) elementToDeselect.classList.remove('selected');
+                }
+                appState.selectedTopicIds.push(randomTopicId);
+                
+                // 5. Re-render and update state
+                renderCards();
+                updateButtonStates();
+                
+                // Ensure the newly created card has the 'selected' class
+                const newCardElement = getElement(`topic-${randomTopicId}`);
+                if (newCardElement) newCardElement.classList.add('selected');
+
+            } catch (error) {
+                 console.error("Random Topic Generation Error:", error.message);
+                 alert(`Failed to generate random topic. Error: ${error.message}`);
+            } finally {
+                // Restore the button state
+                randomBtn.innerHTML = originalText;
+                randomBtn.disabled = false;
+            }
+        }
+        // ********** END NEW FUNCTION **********
+
 
         function handleUploadTopic(event) {
             const file = event.target.files[0];
@@ -783,9 +893,9 @@
                     content: content
                 };
 
-                // 1. Remove old uploaded topic card from TOPIC_POOL and selected list if it exists
-                TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== uploadedId);
-                appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== uploadedId);
+                // 1. Remove old uploaded/custom/random topic card from TOPIC_POOL and selected list if it exists
+                TOPIC_POOL = TOPIC_POOL.filter(t => t.id !== uploadedId && t.id !== 'custom_topic' && t.id !== 'random_topic');
+                appState.selectedTopicIds = appState.selectedTopicIds.filter(id => id !== uploadedId && id !== 'custom_topic' && id !== 'random_topic');
 
                 // 2. Add the new uploaded topic to the pool
                 TOPIC_POOL.unshift(newTopic);
@@ -812,59 +922,6 @@
             };
             reader.readAsText(file); // Only reading text for prototype simplicity
         }
-
-        // ======================================================
-        // START OF NEW FUNCTION FOR STEP 2
-        // ======================================================
-        function selectRandomTopic() {
-            // Check topic limit
-            if (appState.selectedTopicIds.length >= 2) {
-                alert("You can only select a maximum of 2 topics. Please remove one first.");
-                return;
-            }
-
-            // For demo purposes, we'll use a predefined list.
-            // TODO: Replace this with an actual OpenAI call as requested.
-            console.log("TODO: Implement OpenAI API call here to get 1-2 random topics.");
-            
-            const randomTopics = [
-                "The Future of Artificial Intelligence",
-                "Marine Biology",
-                "The History of the Silk Road",
-                "Quantum Computing",
-                "Shakespeare's Influence",
-                "The Psychology of Decision Making",
-                "Renewable Energy Solutions",
-                "The Fall of the Roman Empire",
-                "The Science of Black Holes",
-                "Modern Art Movements"
-            ];
-            
-            // Select a random topic from the list
-            let randomTopic = randomTopics[Math.floor(Math.random() * randomTopics.length)];
-            
-            // Ensure we don't add a duplicate from the *base pool* or the random list
-            let topicInPool = TOPIC_POOL.find(t => t.name.toLowerCase() === randomTopic.toLowerCase());
-            while(topicInPool || appState.selectedTopicIds.find(id => TOPIC_POOL.find(t=>t.id === id)?.name === randomTopic)) {
-                randomTopic = randomTopics[Math.floor(Math.random() * randomTopics.length)];
-                topicInPool = TOPIC_POOL.find(t => t.name.toLowerCase() === randomTopic.toLowerCase());
-            }
-            
-            // Set the value of the search input to the random topic
-            const customTopicInput = getElement('custom-topic-text');
-            customTopicInput.value = randomTopic;
-            
-            // Enable and click the "Select" button (re-uses existing logic)
-            getElement('select-custom-topic-btn').disabled = false;
-            getElement('select-custom-topic-btn').click();
-
-            // Clear the input *after* clicking
-            customTopicInput.value = '';
-            getElement('select-custom-topic-btn').disabled = true;
-        }
-        // ======================================================
-        // END OF NEW FUNCTION FOR STEP 2
-        // ======================================================
 
         // MODIFIED: Function to handle user input changes and store them in appState.userAnswers
         function handleUserAnswer(assignmentIndex, inputElement, answerType, subIndex = null) {
@@ -1261,6 +1318,11 @@
 
             const topicNames = selectedTopics.map(t => t.name);
             const topicContent = selectedTopics.map(t => {
+                // If it's a random topic, send the generated topic name as content
+                if (t.id === 'random_topic' || (t.id === 'custom_topic' && t.content)) {
+                    return `\n\n[TOPIC(S) CONTENT: ${t.content}]\n`
+                }
+                // If it's an uploaded file
                 if (t.id === 'uploaded' && t.content) {
                     return `\n\n[UPLOADED TEXT:\n${t.content.substring(0, 500)}...\n]`
                 }
@@ -1519,6 +1581,9 @@
             customTopicInput.addEventListener('input', updateButtonStates);
             getElement('select-custom-topic-btn').addEventListener('click', handleSelectCustomTopic);
             
+            // NEW: Random topic button listener (Instruction 2)
+            getElement('select-random-topic-btn').addEventListener('click', handleSelectRandomTopic);
+
             // Enter key shortcut for Step 2 Next button
             document.addEventListener('keydown', (event) => {
                 // Only act on the 'Enter' key and when we are on Step 2
